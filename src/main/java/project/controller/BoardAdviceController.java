@@ -16,7 +16,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/mini/board/*")
+@WebServlet({"/mini/board/listBoardAdvice", "/mini/board/insertBoardAdvice", "/mini/board/detailBoardAdvice", "/mini/board/updateBoardAdvice","/mini/board/deleteBoardAdvice" })
 public class BoardAdviceController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardAdviceService b1Svc = new BoardAdviceServiceImpl();
@@ -52,7 +52,7 @@ public class BoardAdviceController extends HttpServlet {
 			request.setAttribute("boardList", boardList);
 
 			// for pagination
-			int totalItems = b1Svc.getBoardAdviceCount(field, query);
+			int totalItems = b1Svc.getBoardCount(field, query);
 			int totalPages = (int) Math.ceil(totalItems * 1.0 / b1Svc.COUNT_PER_PAGE);
 			List<String> pageList = new ArrayList<String>();
 			for (int i = 1; i <= totalPages; i++)
@@ -71,68 +71,66 @@ public class BoardAdviceController extends HttpServlet {
 				break; // 이후에 forward 를 할 수 없게 함.
 			}
 			if (method.equals("GET")) {
-				rd = request.getRequestDispatcher("/WEB-INF/view/boardAdvice/insertBoardAdvice.jsp");
+				rd = request.getRequestDispatcher("/WEB-INF/view/boardAdvice/insertAdvice.jsp");
 				rd.forward(request, response);
 			} else {
 				title = request.getParameter("title");
 				content = request.getParameter("content");
 				boardAdv = new BoardAdvice(sessUid, title, content);
-				b1Svc.insertBoardAdvice(boardAdv);
-				response.sendRedirect("/mp/mini/boardAdvice/listBoardAdvice?p=1");
+				b1Svc.insertBoard(boardAdv);
+				response.sendRedirect("/mp/mini/board/listBoardAdvice?p=1");
 			}
 			break;
 		}
-//		
-//		
-//		case "detailBoardAdvice": {
-//			bid = Integer.parseInt(request.getParameter("bid"));
-//			uid = request.getParameter("uid");
-//			if (!uid.equals(sessUid))
-//				b1Svc.increaseViewCount(bid);
-//
-//			board3 = b1Svc.getBoard(bid);
-//			request.setAttribute("board", board3);
-//
-//			List<Reply> replyList = null; // 댓글 목록 필요 - 2024 02 22 현재 미구현
-//			request.setAttribute("replyList", replyList);
-//
-//			rd = request.getRequestDispatcher("/WEB-INF/view/board/detail.jsp");
-//			rd.forward(request, response);
-//			break;
-//		}
-//		
-//		case "deleteBoardAdvice": {
-//			bid = Integer.parseInt(request.getParameter("bid"));
-//			b1Svc.deleteBoard(bid);
-//			page = (Integer) session.getAttribute("currentBoardPage");
-//			field = (String) session.getAttribute("field");
-//			query = (String) session.getAttribute("query");
-//			query = URLEncoder.encode(query, "utf-8");
-//			response.sendRedirect("/mp/mini/board/list?p=" + page + "&f=" + field + "&q=" + query);
-//			break;
-//		}
-//		
-//		
-//		case "updateBoardAdvice": {
-//			if (method.equals("GET")) {
-//				bid = Integer.parseInt(request.getParameter("bid"));
-//				board3 = b1Svc.getBoard(bid);
-//				request.setAttribute("board", board3);
-//				rd = request.getRequestDispatcher("/WEB-INF/view/board/update.jsp");
-//				rd.forward(request, response);
-//			} else {
-//				bid = Integer.parseInt(request.getParameter("bid"));
-//				uid = request.getParameter("uid");
-//				title = request.getParameter("title");
-//				content = request.getParameter("content");
-//				board3 = new Board3(bid, title, content);
-//
-//				b1Svc.updateBoard(board3);
-//				response.sendRedirect("/mp/mini/board/detail?bid=" + bid + "&uid=" + uid);
-//			}
-//			break;
-//		}
-//		
+		
+		
+		case "detailBoardAdvice": {
+			bid = Integer.parseInt(request.getParameter("bid"));
+			boardAdv = b1Svc.getBoardAdvice(bid);
+			 String uidParameter = request.getParameter("uid");
+			    if (uidParameter != null && !uidParameter.equals(sessUid)) {
+			        b1Svc.increaseViewCount(bid);
+			    }
+			
+			request.setAttribute("board", boardAdv);
+
+			rd = request.getRequestDispatcher("/WEB-INF/view/boardAdvice/detailAdvice.jsp");
+			rd.forward(request, response);
+			break;
+		}
+		
+		case "deleteBoardAdvice": {
+			bid = Integer.parseInt(request.getParameter("bid"));
+			b1Svc.deleteBoard(bid);
+			page = (Integer) session.getAttribute("currentBoardPage");
+			field = (String) session.getAttribute("field");
+			query = (String) session.getAttribute("query");
+			query = URLEncoder.encode(query, "utf-8");
+			response.sendRedirect("/mp/mini/board/listBoardAdvice?p=" + page + "&f=" + field + "&q=" + query);
+			break;
+		}
+		
+		
+		case "updateBoardAdvice": {
+			if (method.equals("GET")) {
+				bid = Integer.parseInt(request.getParameter("bid"));
+				boardAdv = b1Svc.getBoardAdvice(bid);
+				request.setAttribute("board", boardAdv);
+				rd = request.getRequestDispatcher("/WEB-INF/view/boardAdvice/updateAdvice.jsp");
+				rd.forward(request, response);
+			} else {
+				bid = Integer.parseInt(request.getParameter("bid"));
+				uid = request.getParameter("uid");
+				title = request.getParameter("title");
+				content = request.getParameter("content");
+				boardAdv = new BoardAdvice(bid, title, content);
+
+				b1Svc.updateBoard(boardAdv);
+				response.sendRedirect("/mp/mini/board/detailBoardAdvice?bid=" + bid + "&uid=" + uid);
+			}
+			break;
+		}
+		
 
 		}
 	}

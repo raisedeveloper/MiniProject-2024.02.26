@@ -2,22 +2,18 @@ package project.entity;
 
 import java.time.LocalDate;
 
-public class BoardAdvice {  	// 경매 게시판
-	private int bid; 			// 글 번호
-	//private String uname; 		// 작성자 -- 사용 X 지우세요
-	private String uid;			// uid
-	private String title; 		// 제목
-	private String content; 	// 내용
-	private LocalDate modTime; 	// 작성일
-	private int isDeleted;		// 삭제 여부
-	private int viewCount; 		// 조회수
-	private int replyCount; 	// 댓글 개수
-	
-	public BoardAdvice() {}
+public class BoardAdvice { // 경매 게시판
+	private int bid; // 글 번호
+	private String uid; // 작성자
+	private String title; // 제목
+	private String content; // 내용
+	private LocalDate modTime; // 작성일
+	private int isDeleted;
+	private int viewCount; // 조회수
+	private int replyCount; // 댓글 개수
 
 	public BoardAdvice(int bid, String uid, String title, String content, LocalDate modTime, int isDeleted,
 			int viewCount, int replyCount) {
-		super();
 		this.bid = bid;
 		this.uid = uid;
 		this.title = title;
@@ -28,12 +24,20 @@ public class BoardAdvice {  	// 경매 게시판
 		this.replyCount = replyCount;
 	}
 
-	public BoardAdvice(String uid, String title, String content) {
+	public BoardAdvice() {
+	}
+
+	public BoardAdvice(int bid, String title, String content) {
 		super();
+		this.bid = bid;
+		this.title = title;
+		this.content = content;
+	}
+
+	public BoardAdvice(String uid, String title, String content) {
 		this.uid = uid;
 		this.title = title;
 		this.content = content;
-		
 	}
 
 	@Override
@@ -105,5 +109,6 @@ public class BoardAdvice {  	// 경매 게시판
 
 	public void setReplyCount(int replyCount) {
 		this.replyCount = replyCount;
-	}	
+	}
+
 }

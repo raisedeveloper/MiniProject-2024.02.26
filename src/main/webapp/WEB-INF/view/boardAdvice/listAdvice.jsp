@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
@@ -11,13 +12,6 @@ td, th {
 	text-align: center;
 }
 </style>
-<script>
-	function search() {
-		const field = $('#field').val();
-		const query = $('#query').val();
-		location.href = '/mp/mini/board/listBoardAdvice?p=${currentBoardPage}';
-	}
-</script>
 </head>
 <body>
 	<%@ include file="../common/_top.jspf"%>
@@ -30,8 +24,8 @@ td, th {
 					<tr>
 						<td style="width: 52%; text-align: left">
 							<h3>
-								<strong class="me-5">QnA</strong> <span
-									style="font-size: 16px"><a href="/mp/mini/board/insertBoardAdvice"><i
+								<strong class="me-5">자유게시판</strong> <span style="font-size: 16px"><a
+									href="/mp/mini/board/insertBoardAdvice"><i
 										class="fa-solid fa-pen-to-square"></i> 글 쓰기</a></span>
 							</h3>
 						</td>
@@ -41,19 +35,17 @@ td, th {
 
 				<table class="table">
 					<tr>
-						<th style="width: 10%">순번</th>
-						<th style="width: 20%">아이디</th>
-						<th style="width: 40%">문의 사항</th>
+						<th style="width: 10%">번호</th>
+						<th style="width: 50%">제목</th>
+						<th style="width: 30%">작성 일</th>
 						<th style="width: 10%">조회수</th>
-						<th style="width: 20%">문의 시간</th>
 					</tr>
 					<c:forEach var="board" items="${boardList}">
 						<tr>
 							<td>${board.bid}</td>
-							<td>${board.uid}</td>
-							<td>${board.title}</td>
-							<td>${board.viewCount}</td>
+							<td><a href="/mp/mini/board/detailBoardAdvice?bid=${board.bid}">${board.title}</a>
 							<td>${fn:substring(fn:replace(board.modTime,"T"," "), 2, 16)}</td>
+							<td>${board.viewCount}</td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -72,6 +64,7 @@ td, th {
 				</ul>
 
 			</div>
+						<%@ include file="../common/_aside.jspf"%>
 		</div>
 	</div>
 

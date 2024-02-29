@@ -24,19 +24,17 @@ function deleteFunc(bid) {
 <body>
 	<%@ include file="../common/_top.jspf"%>
 
-	<div class="container" style="margin-top: 80px">
+	<div class="container" style="margin-top: 50px">
 		<div class="row">
-			<%@ include file="../common/_aside.jspf"%>
 
 			<!-- ============본문영역============ -->
 			<div class="col-9">
 				<h3>
 					<strong class="me-5">게시글 보기</strong>
 					<span style="font-size: 16px">
-						<a href="/jw/bbs/board/list?p=${currentBoardPage}&f=${field}&q=${query}"><i class="fa-solid fa-table-list"></i>목록</a>
+						<a href="/mp/mini/board/listAuction?p=${currentBoardPage}"><i class="fa-solid fa-table-list"></i>목록</a>
 						<c:if test="${sessUid eq board.uid}">
-							<!-- 본인만 수정 삭제 가능 -->
-							 <a	href="/jw/bbs/board/update?bid=${board.bid}">
+							 <a	href="/mp/mini/board/updateAuction?bid=${board.bid}">
 								<i class="fa-solid fa-file-pen ms-3"></i> 수정</a> 
 								<a href="javascript:deleteFunc('${board.bid}')">
 								<i class="fa-solid fa-eraser ms-3"></i> 삭제</a>
@@ -46,15 +44,14 @@ function deleteFunc(bid) {
 				<hr>
 				<div class="row">
 					<div class="col-8">
-						<h5>${board.title}</h5>
-						<h6>글번호: ${board.bid} // ${fn:replace(board.modTime, "T", "")}</h6>
+						<h5>${board.processTitle}</h5>
+						<h6>글번호: ${board.bid} | ${fn:substring(board.applTime, 2, 10)}</h6>
 					</div>
 					<div class="col-4 text-end">
-						<h5>${board.uname}</h5>
-						<h6>조회 ${board.viewCount} &nbsp;&nbsp; 댓글 ${board.replyCount}</h6>
+						<h5>작성자: ${board.uid}</h5>
 					</div>
 					<hr>
-					<div class="col-12">${fn:replace(board.content, newline, '<br>')}
+					<div class="col-12">${fn:replace(board.processContent, newline, '<br>')}
 					</div>
 				</div>
 			</div>
@@ -69,7 +66,7 @@ function deleteFunc(bid) {
 						<div class="modal-body">
 							정말로 삭제 하시겠습니까?
 							<div class="text-center mt-5">
-								<form action="/jw/bbs/board/delete" method="post">
+								<form action="/mp/mini/board/deleteAuction" method="post">
 									<input type="hidden" id="deleteBid" name="bid">
 									<button class="btn btn-danger" type="submit">삭제</button>
 								</form>

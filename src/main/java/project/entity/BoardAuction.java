@@ -2,37 +2,72 @@ package project.entity;
 
 import java.time.LocalDate;
 
-public class BoardAuction { 		// 경매 게시판
+public class BoardAuction { // 경매 게시판
+	private int bid; // 게시판 번호
+	private String uid; // 유저 아이디
 	private LocalDate applTime; // 신청 시간
-	private String nickName; 		// 닉네임
-	private String processTitle; 	// 제목
-	private int avgPrice; 			// 평균 가격
-	private int numOfCompany; 		// 업체 수
-	private int process; 		// 진행 사항 - 3가지
+	private String nickName; // 닉네임
+	private String processTitle; // 제목
+	private String processContent; // 내용
+	private int avgPrice; // 평균 가격
+	private int numOfCompany; // 업체 수
+	private int process; // 진행 사항 - 3가지
+	private int isDeleted;
 
 	public BoardAuction() {
 	}
 
-	public BoardAuction(LocalDate applTime, String nickName, String processTitle, int avgPrice, int numOfCompany,
-			int process) {
+	public BoardAuction(int bid, String processTitle, String processContent) {
+		this.bid = bid;
+		this.processTitle = processTitle;
+		this.processContent = processContent;
+	}
+
+	public BoardAuction(int bid, String uid, LocalDate applTime, String nickName, String processTitle,
+			String processContent) {
+		this.bid = bid;
+		this.uid = uid;
 		this.applTime = applTime;
 		this.nickName = nickName;
 		this.processTitle = processTitle;
+		this.processContent = processContent;
+	}
+
+	public BoardAuction(int bid, String uid, LocalDate applTime, String nickName, String processTitle,
+			String processContent, int avgPrice, int numOfCompany, int process, int isDeleted) {
+		this.bid = bid;
+		this.uid = uid;
+		this.applTime = applTime;
+		this.nickName = nickName;
+		this.processTitle = processTitle;
+		this.processContent = processContent;
 		this.avgPrice = avgPrice;
 		this.numOfCompany = numOfCompany;
 		this.process = process;
-	}
-
-	public BoardAuction(String nickName, String processTitle) {
-		super();
-		this.nickName = nickName;
-		this.processTitle = processTitle;
+		this.isDeleted = isDeleted;
 	}
 
 	@Override
 	public String toString() {
-		return "BoardAuction [applTime=" + applTime + ", nickName=" + nickName + ", processTitle=" + processTitle
-				+ ", avgPrice=" + avgPrice + ", numOfCompany=" + numOfCompany + ", process=" + process + "]";
+		return "BoardAuction [bid=" + bid + ", uid=" + uid + ", applTime=" + applTime + ", nickName=" + nickName
+				+ ", processTitle=" + processTitle + ", processContent=" + processContent + ", avgPrice=" + avgPrice
+				+ ", numOfCompany=" + numOfCompany + ", process=" + process + ", isDeleted=" + isDeleted + "]";
+	}
+
+	public int getBid() {
+		return bid;
+	}
+
+	public void setBid(int bid) {
+		this.bid = bid;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 	public LocalDate getApplTime() {
@@ -59,6 +94,14 @@ public class BoardAuction { 		// 경매 게시판
 		this.processTitle = processTitle;
 	}
 
+	public String getProcessContent() {
+		return processContent;
+	}
+
+	public void setProcessContent(String processContent) {
+		this.processContent = processContent;
+	}
+
 	public int getAvgPrice() {
 		return avgPrice;
 	}
@@ -81,6 +124,14 @@ public class BoardAuction { 		// 경매 게시판
 
 	public void setProcess(int process) {
 		this.process = process;
+	}
+
+	public int getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 }
