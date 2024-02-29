@@ -16,9 +16,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet({ "/1.mini/board/listAuction", "/1.mini/board/insertAuction", "/1.mini/board/updateAuction",
-		"/1.mini/board/deleteAuction", "/1.mini/board/detailAuction", "/1.mini/board/listBuy",
-		"/1.mini/board/insertBuy", "/1.mini/board/updateBuy", "/1.mini/board/deleteBuy", "/1.mini/board/detailBuy" })
+@WebServlet({ "/mini/board/listAuction", "/mini/board/insertAuction", "/mini/board/updateAuction",
+		"/mini/board/deleteAuction", "/mini/board/detailAuction", "/mini/board/listBuy",
+		"/mini/board/insertBuy", "/mini/board/updateBuy", "/mini/board/deleteBuy", "/mini/board/detailBuy" })
 public class BoardAuctionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardAuctionService bAucSvc = new BoardAuctionServiceImpl();
@@ -41,7 +41,7 @@ public class BoardAuctionController extends HttpServlet {
 		int page = 0;
 
 		switch (action) {
-		case "listAuction": {// /mp/1.mini/boardAuction/list?p=1&f=title&q=검색
+		case "listAuction": {// /mp/mini/boardAuction/list?p=1&f=title&q=검색
 			page_ = request.getParameter("p");
 			field = request.getParameter("f");
 			query = request.getParameter("q");
@@ -69,7 +69,7 @@ public class BoardAuctionController extends HttpServlet {
 		}
 		case "insertAuction": {
 			if (sessUid == null || sessUid.equals("")) {
-				response.sendRedirect("/mp/1.mini/user/login");
+				response.sendRedirect("/mp/mini/user/login");
 				break;
 			}
 			if (method.equals("GET")) {
@@ -79,7 +79,7 @@ public class BoardAuctionController extends HttpServlet {
 				processTitle = request.getParameter("processTitle");
 				boardAuc = new BoardAuction(processTitle, sessNickName);
 				bAucSvc.insertBoard(boardAuc);
-				response.sendRedirect("/mp/1.mini/board/listAuction?p=1");
+				response.sendRedirect("/mp/mini/board/listAuction?p=1");
 			}
 			break;
 		}
@@ -108,7 +108,7 @@ public class BoardAuctionController extends HttpServlet {
 //		field = (String) session.getAttribute("field");
 //		query = (String) session.getAttribute("query");
 //		query = URLEncoder.encode(query, "utf-8");
-//		response.sendRedirect("/mp/1.mini/board/list?p=" + page + "&f=" + field + "&q=" + query);
+//		response.sendRedirect("/mp/mini/board/list?p=" + page + "&f=" + field + "&q=" + query);
 //		break;
 //	}
 //		
@@ -127,12 +127,12 @@ public class BoardAuctionController extends HttpServlet {
 //			boardAuc = new BoardAuction(bid, title, content);
 //
 //			bAucSvc.updateBoard(boardAuc);
-//			response.sendRedirect("/mp/1.mini/board/detail?bid=" + bid + "&uid=" + uid);
+//			response.sendRedirect("/mp/mini/board/detail?bid=" + bid + "&uid=" + uid);
 //		}
 //		break;
 //	}
 
-//	case "listBuy": {// /mp/1.mini/board/list?p=1&f=title&q=검색
+//	case "listBuy": {// /mp/mini/board/list?p=1&f=title&q=검색
 //		page_ = request.getParameter("p");
 //		field = request.getParameter("f");
 //		query = request.getParameter("q");
@@ -161,7 +161,7 @@ public class BoardAuctionController extends HttpServlet {
 //		case "insertBuy": {
 //
 //			if (sessUid == null || sessUid.equals("")) {
-//				response.sendRedirect("/mp/1.mini/user/login");
+//				response.sendRedirect("/mp/mini/user/login");
 //				// 이것만 있으면 오류 코드 - sendRedirect와 forward 중 한번만 쓸 수 있음.
 //				break; // 이후에 forward 를 할 수 없게 함.
 //			}
@@ -173,7 +173,7 @@ public class BoardAuctionController extends HttpServlet {
 //				content = request.getParameter("content");
 //				boardAuc = new BoardAuction(title, content, sessUid);
 //				bAucSvc.insertBoard(boardAuc);
-//				response.sendRedirect("/mp/1.mini/board/list?p=1");
+//				response.sendRedirect("/mp/mini/board/list?p=1");
 //			}
 //			break;
 //		}
@@ -204,7 +204,7 @@ public class BoardAuctionController extends HttpServlet {
 //			field = (String) session.getAttribute("field");
 //			query = (String) session.getAttribute("query");
 //			query = URLEncoder.encode(query, "utf-8");
-//			response.sendRedirect("/mp/1.mini/board/list?p=" + page + "&f=" + field + "&q=" + query);
+//			response.sendRedirect("/mp/mini/board/list?p=" + page + "&f=" + field + "&q=" + query);
 //			break;
 //		}
 //		
@@ -224,7 +224,7 @@ public class BoardAuctionController extends HttpServlet {
 //				boardAuc = new BoardAuction(bid, title, content);
 //
 //				bAucSvc.updateBoard(boardAuc);
-//				response.sendRedirect("/mp/1.mini/board/detail?bid=" + bid + "&uid=" + uid);
+//				response.sendRedirect("/mp/mini/board/detail?bid=" + bid + "&uid=" + uid);
 //			}
 //			break;
 //		}
