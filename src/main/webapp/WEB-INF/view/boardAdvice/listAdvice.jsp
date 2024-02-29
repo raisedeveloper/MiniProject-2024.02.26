@@ -15,7 +15,7 @@ td, th {
 	function search() {
 		const field = $('#field').val();
 		const query = $('#query').val();
-		location.href = '/mp/mini/boardAdvice/listAdvice?p=${currentBoardPage}';
+		location.href = '/mp/mini/board/listBoardAdvice?p=${currentBoardPage}';
 	}
 </script>
 </head>
@@ -31,7 +31,7 @@ td, th {
 						<td style="width: 52%; text-align: left">
 							<h3>
 								<strong class="me-5">QnA</strong> <span
-									style="font-size: 16px"><a href="/mp/mini/board/insertAdvice"><i
+									style="font-size: 16px"><a href="/mp/mini/board/insertBoardAdvice"><i
 										class="fa-solid fa-pen-to-square"></i> 글 쓰기</a></span>
 							</h3>
 						</td>

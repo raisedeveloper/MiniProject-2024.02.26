@@ -32,9 +32,7 @@ public class BoardAdviceDao {
 	
 	public BoardAdvice getBoardAdvice(int bid) {
 		Connection conn = getConnection();
-		String sql = "SELECT b.*, u.uname FROM board b"
-					+ "	JOIN users u ON b.uid=u.uid"
-					+ "	WHERE b.bid=?";
+		String sql = "SELECT * FROM board";
 		BoardAdvice boardAd = null;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -43,9 +41,9 @@ public class BoardAdviceDao {
 			ResultSet rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				boardAd = new BoardAdvice(rs.getInt(1), rs.getString(2), rs.getString(3),
-						rs.getString(4), rs.getString(5), LocalDate.parse(rs.getString(6)),
-						rs.getInt(7), rs.getInt(8), rs.getInt(9));
+				boardAd = new BoardAdvice(rs.getInt(1), rs.getString(2),
+						rs.getString(3), rs.getString(4), LocalDate.parse(rs.getString(5)),
+						rs.getInt(6), rs.getInt(7), rs.getInt(8));
 			}
 			rs.close(); pstmt.close(); conn.close();
 		} catch (Exception e) {
@@ -59,7 +57,7 @@ public class BoardAdviceDao {
 	public List<BoardAdvice> getBoardAdviceList(String field, String query, int num, int offset) {
 		Connection conn = getConnection();
 		String sql = "SELECT * FROM board"
-					+ "	WHERE b.isDeleted=0 AND " + field + " LIKE ?"
+					+ "	WHERE " + field + " LIKE ?"
 					+ "	ORDER BY bid DESC "
 					+ "	LIMIT ? OFFSET ?";
 		List<BoardAdvice> list = new ArrayList<BoardAdvice>();
@@ -72,9 +70,9 @@ public class BoardAdviceDao {
 			
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				BoardAdvice boardAd = new BoardAdvice(rs.getInt(1), rs.getString(2), rs.getString(3),
-						rs.getString(4), rs.getString(5), LocalDate.parse(rs.getString(6)),
-						rs.getInt(7), rs.getInt(8), rs.getInt(9));
+				BoardAdvice boardAd = new BoardAdvice(rs.getInt(1), rs.getString(2),
+						rs.getString(3), rs.getString(4), LocalDate.parse(rs.getString(5)),
+						rs.getInt(6), rs.getInt(7), rs.getInt(8));
 				
 				list.add(boardAd);
 			}
@@ -87,12 +85,12 @@ public class BoardAdviceDao {
 	
 	public void insertBoardAdvice(BoardAdvice boardAd) {
 		Connection conn = getConnection();
-		String sql = "insert into board values (default, ?, ?, ?, default, default, default, default)";
+		String sql = "insert into board values (default, ?, ?, ?, ?, default, default, default, default)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, boardAd.getTitle());
-			pstmt.setString(2, boardAd.getContent());
-			pstmt.setString(3, boardAd.getUid());
+			pstmt.setString(2, boardAd.getUid());
+			pstmt.setString(3, boardAd.getTitle());
+			pstmt.setString(4, boardAd.getContent());
 			
 			pstmt.executeUpdate();
 			pstmt.close(); conn.close();
