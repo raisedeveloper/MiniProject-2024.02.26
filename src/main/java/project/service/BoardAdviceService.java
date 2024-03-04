@@ -11,7 +11,7 @@ public interface BoardAdviceService {
 
 	BoardAdvice getBoardAdvice(int bid);
 
-	int getBoardCount(String field, String query);
+	int getBoardAdviceCount(String field, String query);
 
 	void insertBoard(BoardAdvice boardAdvice);
 

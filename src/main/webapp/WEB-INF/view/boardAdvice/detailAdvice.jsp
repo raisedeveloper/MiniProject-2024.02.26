@@ -24,7 +24,7 @@ function deleteFunc(bid) {
 <body>
 	<%@ include file="../common/_top.jspf"%>
 
-	<div class="container" style="margin-top: 80px">
+	<div class="container" style="margin-top: 50px">
 		<div class="row">
 
 			<!-- ============본문영역============ -->
@@ -47,6 +47,9 @@ function deleteFunc(bid) {
 					<div class="col-8">
 						<h5>${board.title}</h5>
 						<h6>글번호: ${board.bid} // ${fn:replace(board.modTime, "T", "")}</h6>
+					</div>
+					<div class="col-4 text-end">
+						<h5>작성자: ${board.uid}</h5>
 					</div>
 					<hr>
 					<div class="col-12">${fn:replace(board.content, newline, '<br>')}

@@ -15,7 +15,7 @@ td, th {
 <body>
 	<%@ include file="../common/_top.jspf"%>
 
-	<div class="container" style="margin-top: 80px">
+	<div class="container" style="margin-top: 50px">
 		<div class="row">
 
 			<!-- ============본문영역============ -->

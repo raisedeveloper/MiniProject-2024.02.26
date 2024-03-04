@@ -12,11 +12,17 @@ td, th {
 	text-align: center;
 }
 </style>
+	<script>
+   function search() {
+      location.href = '/mp/mini/board/listBoardAdvice?p=${currentBoardPage}&f=uid&q=${sessUid}';
+   }
+</script>
+</script>
 </head>
 <body>
 	<%@ include file="../common/_top.jspf"%>
 
-	<div class="container" style="margin-top: 150px">
+	<div class="container" style="margin-top: 50px">
 		<div class="row">
 
 			<div class="col-9">
@@ -36,13 +42,15 @@ td, th {
 				<table class="table">
 					<tr>
 						<th style="width: 10%">번호</th>
-						<th style="width: 50%">제목</th>
+						<th style="width: 10%">작성자</th>
+						<th style="width: 40%">제목</th>
 						<th style="width: 30%">작성 일</th>
 						<th style="width: 10%">조회수</th>
 					</tr>
 					<c:forEach var="board" items="${boardList}">
 						<tr>
 							<td>${board.bid}</td>
+							<td>${board.uid}</td>
 							<td><a href="/mp/mini/board/detailBoardAdvice?bid=${board.bid}">${board.title}</a>
 							<td>${fn:substring(fn:replace(board.modTime,"T"," "), 2, 16)}</td>
 							<td>${board.viewCount}</td>
@@ -64,7 +72,9 @@ td, th {
 				</ul>
 
 			</div>
-						<%@ include file="../common/_aside.jspf"%>
+			<c:if test="${not empty sessUid}">
+				<%@ include file="../common/_aside.jspf"%>
+			</c:if>
 		</div>
 	</div>
 
